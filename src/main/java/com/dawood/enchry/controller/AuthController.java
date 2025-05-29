@@ -1,6 +1,6 @@
 package com.dawood.enchry.controller;
 
-import dto.auth.RegisterRequestDTO;
+import com.dawood.enchry.dto.auth.RegisterRequestDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("auth")
+@RequestMapping("auth/")
 public class AuthController {
 
-    @PostMapping("/register")
+    @PostMapping("register")
     public ResponseEntity<String> register(@Valid @RequestBody RegisterRequestDTO req){
         return null;
     }

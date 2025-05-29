@@ -1,4 +1,4 @@
-package dto.auth;
+package com.dawood.enchry.dto.auth;
 
 import lombok.Getter;
 import lombok.Setter;
