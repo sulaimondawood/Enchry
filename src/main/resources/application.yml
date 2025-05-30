@@ -15,4 +15,4 @@ server:
     context-path: /api
 
 jwt:
-  secret: thelwwerk49348398rjdefndteurdhsjncjdfnemrieudiscnfmdfnwuiweudscnm3rt4grdf9
+  secret: "thelwwerk49348398rjdefndteurdhsjncjdfnemrieudiscnfmdfnwuiweudscnm3rt4grdf9"

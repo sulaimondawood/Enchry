@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final UserRepository userRepository;
 
-    public User findUserByEmail(String email){
-        if(userRepository.findByEmail(email).isPresent()){
-            throw new EmailAlreadyExists("Email already exist;");
-        }
+    public boolean existsByEmail(String email){
+      return userRepository.existsByEmail(email);
     }
 }

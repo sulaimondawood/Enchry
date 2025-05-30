@@ -1,6 +1,7 @@
 package com.dawood.enchry.service;
 
 import com.dawood.enchry.dto.auth.RegisterRequestDTO;
+import com.dawood.enchry.exception.EmailAlreadyExists;
 import com.dawood.enchry.model.User;
 import com.dawood.enchry.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,9 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
 
     public void register(RegisterRequestDTO requestDTO){
-        userService.findUserByEmail(requestDTO.getEmail());
+        if( userService.existsByEmail(requestDTO.getEmail())){
+            throw new EmailAlreadyExists("Email already exists");
+        }
 
         User newUser = new User();
         newUser.setEmail(requestDTO.getEmail());

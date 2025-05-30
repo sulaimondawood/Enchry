@@ -17,7 +17,8 @@ public class JwtUtils {
     private final SecretKey secret;
 
     public JwtUtils( @Value("{{jwt.secret}}") String secret){
-        byte[] bytes = Base64.getDecoder().decode(secret.getBytes(StandardCharsets.UTF_8));
+        String secrets = "rjgrkjvrh48u38yrhefhjefnvdmekfekfnerneruiiejdkvndmveirunfmd";
+        byte[] bytes = secrets.getBytes(StandardCharsets.UTF_8);
         this.secret = Keys.hmacShaKeyFor(bytes);
     }
 
