@@ -1,5 +1,6 @@
 package com.dawood.enchry.config;
 
+import com.dawood.enchry.service.CustomUserDetailsService;
 import com.dawood.enchry.utils.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @RequiredArgsConstructor
 public class AppConfig {
-
+    private final CustomUserDetailsService userDetailsService;
     private final  JwtFilter jwtFilter;
 
 
@@ -47,7 +48,9 @@ public class AppConfig {
     public AuthenticationProvider authenticationProvider (){
         DaoAuthenticationProvider dao = new DaoAuthenticationProvider();
         dao.setPasswordEncoder(passwordEncoder());
-        dao.
+        dao.setUserDetailsService(userDetailsService);
+
+        return dao;
     }
 
     @Bean
