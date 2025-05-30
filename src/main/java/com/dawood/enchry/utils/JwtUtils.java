@@ -1,5 +1,6 @@
 package com.dawood.enchry.utils;
 
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +40,19 @@ public class JwtUtils {
                 .getPayload()
                 .getSubject();
 
+    }
+
+    public boolean isTokenValid(String token){
+        try {
+            Jwts.parser()
+                    .verifyWith(secret)
+                    .build()
+                    .parseSignedClaims(token);
+
+            return true;
+        }catch (JwtException ex){
+            return false;
+        }
     }
 
 }
