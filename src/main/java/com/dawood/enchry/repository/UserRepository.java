@@ -1,6 +1,6 @@
 package com.dawood.enchry.repository;
 
-import com.dawood.enchry.model.User;d
+import com.dawood.enchry.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
