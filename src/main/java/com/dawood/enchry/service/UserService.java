@@ -1,6 +1,7 @@
 package com.dawood.enchry.service;
 
 import com.dawood.enchry.exception.EmailAlreadyExists;
+import com.dawood.enchry.exception.UserNotFoundException;
 import com.dawood.enchry.model.User;
 import com.dawood.enchry.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,5 +14,9 @@ public class UserService {
 
     public boolean existsByEmail(String email){
       return userRepository.existsByEmail(email);
+    }
+
+    public User findUserByEmail(String email){
+        return  userRepository.findByEmail(email).orElseThrow(()->new UserNotFoundException("Incorrect credentials"));
     }
 }

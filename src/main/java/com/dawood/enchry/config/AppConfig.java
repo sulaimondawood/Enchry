@@ -1,7 +1,6 @@
 package com.dawood.enchry.config;
 
 import com.dawood.enchry.service.CustomUserDetailsService;
-import com.dawood.enchry.utils.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,20 +27,19 @@ import java.util.List;
 @EnableWebSecurity
 public class AppConfig {
     private final CustomUserDetailsService userDetailsService;
-    private final  JwtFilter jwtFilter;
-    private final AuthenticationManager authenticationManager;
+    private final JwtFilter jwtFilter;
 
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((authorizeReq)->authorizeReq.requestMatchers("/api/auth/**")
+                .authorizeHttpRequests((authorizeReq)->authorizeReq.requestMatchers("/auth/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationManager(authenticationManager)
+                .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
