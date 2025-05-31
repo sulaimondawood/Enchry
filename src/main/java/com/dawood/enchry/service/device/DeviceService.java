@@ -26,6 +26,7 @@ public class DeviceService {
 
         device.setDeviceName(req.getDeviceName());
         device.setSensorType(req.getSensorType());
+        device.setDeviceDescription(req.getDeviceDescription());
         device.setUser(user);
 
         Device savedDevice = deviceRepository.save(device);
