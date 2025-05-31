@@ -22,6 +22,10 @@ public class Device {
     @Column(nullable = true)
     private String deviceDescription;
 
+    @Column(nullable = false)
+    @NotBlank(message = "Select sensor type")
+    private String sensorType;
+
     @ManyToOne()
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
