@@ -1,6 +1,9 @@
 package com.dawood.enchry.service.device;
 
-import com.dawood.enchry.dto.device.DeviceRequestResponseDTO;
+import com.dawood.enchry.dto.device.DeviceRequestDTO;
+import com.dawood.enchry.dto.device.DeviceResponseDTO;
+import com.dawood.enchry.dto.device.DeviceResponseDTO;
+import com.dawood.enchry.exception.NoDeviceFoundException;
 import com.dawood.enchry.mapper.DeviceMapper;
 import com.dawood.enchry.model.Device;
 import com.dawood.enchry.model.User;
@@ -12,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +25,7 @@ public class DeviceService {
     private final DeviceRepository deviceRepository;
     private final UserService userService;
 
-    public DeviceRequestResponseDTO addDevice(DeviceRequestResponseDTO req, String jwt){
+    public DeviceResponseDTO addDevice(DeviceRequestDTO req, String jwt){
         Device device = new Device();
 
         User user = userService.extractUserFromToken(jwt);
@@ -36,12 +40,38 @@ public class DeviceService {
         return DeviceMapper.toDTO(savedDevice);
     }
 
-    public List<DeviceRequestResponseDTO> getAllDevices(){
+    public List<DeviceResponseDTO> getAllDevices(){
         List<Device> devices = deviceRepository.findAll();
        return devices.stream().map(device->DeviceMapper.toDTO(device)).toList();
     }
 
-    public List<DeviceRequestResponseDTO> getMyDevices(){
-        List<Device> devices =
+    public DeviceResponseDTO getDevice(UUID deviceId, String jwt){
+        Device device = deviceRepository.findById(deviceId)
+                .orElseThrow(()-> new NoDeviceFoundException("Device does not exist"));
+
+        return DeviceMapper.toDTO(device);
+    }
+
+
+    public List<DeviceResponseDTO> getUserDevices(String jwt){
+
+        User user = userService.extractUserFromToken(jwt);
+        List<Device> devices = deviceRepository.findByUser(user);
+        return devices.stream()
+                .map(DeviceMapper::toDTO)
+                .toList();
+    }
+
+
+    public void deleteDevice(String jwt, UUID deviceId){
+        User user = userService.extractUserFromToken(jwt);
+
+        Device device = deviceRepository.findByIdAndUser(deviceId, user)
+                .orElseThrow(()->new NoDeviceFoundException("Device does not exist"));
+        deviceRepository.delete(device);
+    }
+
+    public DeviceResponseDTO changeDeviceStatus(String deviceId, boolean status, String jwt){
+        Device device = deviceRepository.findByIdAndUser()
     }
 }

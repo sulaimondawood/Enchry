@@ -45,5 +45,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleIncorrectEmailPasswordException(IncorrectEmailPasswordException ex){
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
+
+    @ExceptionHandler(NoDeviceFoundException.class)
+    public ResponseEntity<String> handleNoDeviceFoundException(NoDeviceFoundException ex){
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
 }
 

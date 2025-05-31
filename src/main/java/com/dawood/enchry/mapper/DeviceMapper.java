@@ -1,6 +1,6 @@
 package com.dawood.enchry.mapper;
 
-import com.dawood.enchry.dto.device.DeviceRequestResponseDTO;
+import com.dawood.enchry.dto.device.DeviceResponseDTO;
 import com.dawood.enchry.model.Device;
 
 public class DeviceMapper {
@@ -12,12 +12,14 @@ public class DeviceMapper {
 //        device.setUser();
 //    }
 
-    public static DeviceRequestResponseDTO toDTO(Device device){
-        DeviceRequestResponseDTO dto = new DeviceRequestResponseDTO();
+    public static DeviceResponseDTO toDTO(Device device){
+        DeviceResponseDTO dto = new DeviceResponseDTO();
 
+        dto.setId(device.getId().toString());
         dto.setDeviceName(device.getDeviceName());
         dto.setDeviceDescription(device.getDeviceDescription());
         dto.setSensorType(device.getSensorType());
+        dto.setActive(device.isActive());
 
         return dto;
     }

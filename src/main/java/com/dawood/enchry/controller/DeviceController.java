@@ -1,6 +1,7 @@
 package com.dawood.enchry.controller;
 
-import com.dawood.enchry.dto.device.DeviceRequestResponseDTO;
+import com.dawood.enchry.dto.device.DeviceRequestDTO;
+import com.dawood.enchry.dto.device.DeviceResponseDTO;
 import com.dawood.enchry.service.device.DeviceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @RestController
@@ -21,21 +23,40 @@ public class DeviceController {
     private final DeviceService deviceService;
 
     @PostMapping
-    public ResponseEntity<DeviceRequestResponseDTO> addDevice(@Valid @RequestBody DeviceRequestResponseDTO req,
+    public ResponseEntity<DeviceResponseDTO> addDevice(@Valid @RequestBody DeviceRequestDTO req,
                                                               @RequestHeader("Authorization") String jwt){
 
-        DeviceRequestResponseDTO res = deviceService.addDevice(req,jwt);
+        DeviceResponseDTO res = deviceService.addDevice(req,jwt);
         return ResponseEntity.ok().body(res);
     }
 
     @GetMapping
-    public ResponseEntity<List<DeviceRequestResponseDTO>> getAllDevics(){
-        List<DeviceRequestResponseDTO> devices = deviceService.getAllDevices();
+    public ResponseEntity<List<DeviceResponseDTO>> getAllDevices(){
+        List<DeviceResponseDTO> devices = deviceService.getAllDevices();
         return ResponseEntity.ok().body(devices);
     }
 
-    @GetMapping
-    public ResponseEntity<List<DeviceRequestResponseDTO>> getMyDevices(){
+    @GetMapping("/user")
+    public ResponseEntity<List<DeviceResponseDTO>> getUserDevices(@RequestHeader("Authorization") String jwt){
+
+        List<DeviceResponseDTO> response = deviceService.getUserDevices(jwt);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{device_id}")
+    public ResponseEntity<DeviceResponseDTO> deleteDevice(@RequestHeader("Authorization") String jwt,
+                                                                 @PathVariable UUID device_id){
+        deviceService.deleteDevice(jwt,device_id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{device_id}/status")
+    public ResponseEntity<DeviceResponseDTO> changeDeviceStatus(
+            @RequestParam boolean activate,
+            @RequestHeader("Authorization") String jwt,
+            @PathVariable UUID deviceId
+    ){
+
         return null;
     }
 }

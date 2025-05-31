@@ -8,14 +8,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DeviceRequestDTO {
-    @Column(nullable = false)
+
     @NotBlank(message = "Device name is required")
     private String deviceName;
 
-    @Column(nullable = true)
     private String deviceDescription;
 
-    @Column(nullable = false)
     @NotBlank(message = "Select sensor type")
     private String sensorType;
 }
