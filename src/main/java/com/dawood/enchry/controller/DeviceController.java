@@ -22,9 +22,11 @@ public class DeviceController {
     public ResponseEntity<DeviceRequestResponseDTO> addDevice(@Valid @RequestBody DeviceRequestResponseDTO req,
                                                               @RequestHeader("Authorization") String jwt){
 
-        System.out.println("Add device controller");
-        log.info("Add device controller"+jwt);
         DeviceRequestResponseDTO res = deviceService.addDevice(req,jwt);
         return ResponseEntity.ok().body(res);
+    }
+
+    public ResponseEntity<DeviceRequestResponseDTO> getAllDevics(@RequestHeader("Authorization") String jwt){
+
     }
 }
