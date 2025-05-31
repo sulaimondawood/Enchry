@@ -29,21 +29,23 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
 
-        if(authHeader == null || authHeader.startsWith("Bearer")){
+        if(authHeader == null || !authHeader.startsWith("Bearer ")){
             filterChain.doFilter(request,response);
+            logger.info("INvalid shit");
             return;
         }
 
         try {
             final String jwt = authHeader.substring(7);
             final String userEmail = jwtUtils.extractEmail(jwt);
-
+            logger.info(userEmail);
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
             if(authentication == null && userEmail != null){
               UserDetails userDetails = customUserDetailsService.loadUserByUsername(userEmail);
 
                 if(jwtUtils.isTokenValid(jwt)){
+                    logger.info(jwt);
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,
                             null,userDetails.getAuthorities());
 

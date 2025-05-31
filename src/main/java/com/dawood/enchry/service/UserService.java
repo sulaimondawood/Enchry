@@ -6,11 +6,14 @@ import com.dawood.enchry.model.User;
 import com.dawood.enchry.repository.UserRepository;
 import com.dawood.enchry.utils.JwtUtils;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
+    private static final Logger log = LoggerFactory.getLogger(UserService.class);
     private final UserRepository userRepository;
     private final JwtUtils jwtUtils;
 
@@ -23,7 +26,11 @@ public class UserService {
     }
 
     public User extractUserFromToken(String jwt){
-        String userEmail = jwtUtils.extractEmail(jwt);
+        final String token = jwt.substring(7);
+
+        String userEmail = jwtUtils.extractEmail(token);
+        log.info(userEmail);
+        System.out.println(userEmail);
         return findUserByEmail(userEmail);
     }
 }

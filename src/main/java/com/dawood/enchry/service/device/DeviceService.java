@@ -7,12 +7,15 @@ import com.dawood.enchry.model.User;
 import com.dawood.enchry.repository.DeviceRepository;
 import com.dawood.enchry.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class DeviceService {
 
+    private static final Logger log = LoggerFactory.getLogger(DeviceService.class);
     private final DeviceRepository deviceRepository;
     private final UserService userService;
 
@@ -25,7 +28,9 @@ public class DeviceService {
         device.setSensorType(req.getSensorType());
         device.setUser(user);
 
-        return DeviceMapper.toDTO(device);
+        Device savedDevice = deviceRepository.save(device);
+        log.info(savedDevice.getDeviceName());
+        return DeviceMapper.toDTO(savedDevice);
     }
 
 }
