@@ -57,6 +57,7 @@ public class DeviceController {
             @PathVariable UUID deviceId
     ){
 
-        return null;
+        DeviceResponseDTO response = deviceService.changeDeviceStatus(deviceId,activate,jwt);
+        return ResponseEntity.ok(response);
     }
 }

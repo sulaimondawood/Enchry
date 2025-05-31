@@ -62,6 +62,13 @@ public class DeviceService {
                 .toList();
     }
 
+    public DeviceResponseDTO getUserDevice(UUID deviceId, String jwt){
+        User user = userService.extractUserFromToken(jwt);
+        Device device = deviceRepository.findByIdAndUser(deviceId,user)
+                .orElseThrow(()-> new NoDeviceFoundException("Device does not exist"));
+
+        return DeviceMapper.toDTO(device);
+    }
 
     public void deleteDevice(String jwt, UUID deviceId){
         User user = userService.extractUserFromToken(jwt);
@@ -71,7 +78,14 @@ public class DeviceService {
         deviceRepository.delete(device);
     }
 
-    public DeviceResponseDTO changeDeviceStatus(String deviceId, boolean status, String jwt){
-        Device device = deviceRepository.findByIdAndUser()
+    public DeviceResponseDTO changeDeviceStatus(UUID deviceId, boolean status, String jwt){
+        User user = userService.extractUserFromToken(jwt);
+        Device device = deviceRepository.findByIdAndUser(deviceId,user)
+                .orElseThrow(()-> new NoDeviceFoundException("Device does not exist"));
+
+        device.setActive(status);
+        deviceRepository.save(device);
+
+        return DeviceMapper.toDTO(device);
     }
 }
