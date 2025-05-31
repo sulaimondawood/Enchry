@@ -32,7 +32,7 @@ public class AuthService {
 
         User newUser = new User();
         newUser.setEmail(requestDTO.getEmail());
-        newUser.setUsername(requestDTO.getUsername());
+        newUser.setFullname(requestDTO.getFullname());
         newUser.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
 
         userRepository.save(newUser);
@@ -46,7 +46,7 @@ public class AuthService {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(req.getEmail(),req.getPassword()));
         if(authentication.isAuthenticated()){
             response.setEmail(req.getEmail());
-            response.setToken(jwtUtils.generateToken(req.getEmail(), user.getUsername()));
+            response.setToken(jwtUtils.generateToken(req.getEmail(), user.getFullname()));
 
             return  response;
         }

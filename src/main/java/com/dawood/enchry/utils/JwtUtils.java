@@ -23,10 +23,10 @@ public class JwtUtils {
     }
 
 
-    public String generateToken(String email, String username){
+    public String generateToken(String email, String fullname){
        return Jwts.builder()
                 .subject(email)
-                .claim("username", username)
+                .claim("fullname", fullname)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis()+ expiration))
                 .signWith(secret)

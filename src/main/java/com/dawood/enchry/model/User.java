@@ -20,8 +20,8 @@ public class User implements UserDetails {
     private UUID id;
 
     @Column(nullable = false)
-    @NotBlank(message = "User name is required")
-    private String username;
+    @NotBlank(message = "Fullname is required")
+    private String fullname;
 
     @Column(nullable = false, unique = true)
     @Email(message = "Email is invalid")
@@ -38,5 +38,10 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
     }
 }
