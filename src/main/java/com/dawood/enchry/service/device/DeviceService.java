@@ -41,4 +41,7 @@ public class DeviceService {
        return devices.stream().map(device->DeviceMapper.toDTO(device)).toList();
     }
 
+    public List<DeviceRequestResponseDTO> getMyDevices(){
+        List<Device> devices =
+    }
 }
