@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/devices")
@@ -26,7 +28,14 @@ public class DeviceController {
         return ResponseEntity.ok().body(res);
     }
 
-    public ResponseEntity<DeviceRequestResponseDTO> getAllDevics(@RequestHeader("Authorization") String jwt){
+    @GetMapping
+    public ResponseEntity<List<DeviceRequestResponseDTO>> getAllDevics(){
+        List<DeviceRequestResponseDTO> devices = deviceService.getAllDevices();
+        return ResponseEntity.ok().body(devices);
+    }
 
+    @GetMapping
+    public ResponseEntity<List<DeviceRequestResponseDTO>> getMyDevices(){
+        return null;
     }
 }

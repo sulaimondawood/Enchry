@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class DeviceService {
@@ -32,6 +34,11 @@ public class DeviceService {
         Device savedDevice = deviceRepository.save(device);
         log.info(savedDevice.getDeviceName());
         return DeviceMapper.toDTO(savedDevice);
+    }
+
+    public List<DeviceRequestResponseDTO> getAllDevices(){
+        List<Device> devices = deviceRepository.findAll();
+       return devices.stream().map(device->DeviceMapper.toDTO(device)).toList();
     }
 
 }
