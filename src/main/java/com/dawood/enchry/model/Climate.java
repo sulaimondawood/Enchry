@@ -3,12 +3,21 @@ package com.dawood.enchry.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Climate {
 
     @Id
@@ -29,10 +38,10 @@ public class Climate {
     @NotBlank(message = "Timezone wasn't specified")
     private String timezone;
 
-    @NotEmpty(message = "Longitude is required")
+    @NotNull(message = "Longitude is required")
     private Long longitude;
 
-    @NotEmpty(message = "Latitude is required")
+    @NotNull(message = "Latitude is required")
     private Long latitude;
 
     @CreatedDate

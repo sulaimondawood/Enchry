@@ -10,6 +10,7 @@ public class ClimateService {
 
     public ClimateResponseDTO create(ClimateRequestDTO req){
         Climate newClimate = new Climate();
-        newClimate.
+
+        return null;
     }
 }
