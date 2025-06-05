@@ -21,6 +21,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -34,7 +35,7 @@ public class AppConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
-                .cors(Customizer.withDefaults())
+                .cors(cors->cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests((authorizeReq)->authorizeReq.requestMatchers("/auth/**")
                         .permitAll()
                         .anyRequest()
@@ -52,8 +53,8 @@ public class AppConfig {
     CorsConfigurationSource corsConfigurationSource (){
         CorsConfiguration cors = new CorsConfiguration();
         cors.setAllowedOrigins(List.of("http://localhost:3000","http://localhost:3001"));
-        cors.setAllowedMethods(List.of("GET","POST","PUT","PATCH","DELETE"));
-        cors.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        cors.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        cors.setAllowedHeaders(List.of("*"));
 
         UrlBasedCorsConfigurationSource urlSource = new UrlBasedCorsConfigurationSource();
         urlSource.registerCorsConfiguration("/**",cors);

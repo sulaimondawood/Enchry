@@ -31,7 +31,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if(authHeader == null || !authHeader.startsWith("Bearer ")){
             filterChain.doFilter(request,response);
-            logger.info("INvalid shit");
             return;
         }
 
@@ -55,7 +54,7 @@ public class JwtFilter extends OncePerRequestFilter {
             }
             filterChain.doFilter(request,response);
         }catch (Exception e){
-            handlerExceptionResolver.resolveException(request,response,null,e);
+
         }
     }
 }

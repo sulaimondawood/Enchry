@@ -16,7 +16,7 @@ type = 'BEARER'
 type = 'JSON'
 raw = '''
 {
-  deviceName: "King's sensor",
+  deviceName: "King'ss sensor",
   deviceDescription: "Used for scanning both temp and hum.",
   sensorType: "BOTH",
 }'''

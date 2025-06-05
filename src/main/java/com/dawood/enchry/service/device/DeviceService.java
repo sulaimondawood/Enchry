@@ -57,6 +57,8 @@ public class DeviceService {
 
         User user = userService.extractUserFromToken(jwt);
         List<Device> devices = deviceRepository.findByUser(user);
+
+        log.info(devices.stream().toString());
         return devices.stream()
                 .map(DeviceMapper::toDTO)
                 .toList();

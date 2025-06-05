@@ -43,6 +43,12 @@ public class DeviceController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/user/{deviceId}")
+    public ResponseEntity<DeviceResponseDTO> getUserDevice(@RequestHeader("Authorization") String jwt,
+                                                           @PathVariable UUID deviceId){
+        return ResponseEntity.ok(deviceService.getUserDevice(deviceId, jwt));
+    }
+
     @DeleteMapping("/{device_id}")
     public ResponseEntity<DeviceResponseDTO> deleteDevice(@RequestHeader("Authorization") String jwt,
                                                                  @PathVariable UUID device_id){
@@ -50,7 +56,7 @@ public class DeviceController {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/{device_id}/status")
+    @PatchMapping("/{deviceId}/status")
     public ResponseEntity<DeviceResponseDTO> changeDeviceStatus(
             @RequestParam boolean activate,
             @RequestHeader("Authorization") String jwt,
