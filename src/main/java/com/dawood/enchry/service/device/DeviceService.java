@@ -2,7 +2,6 @@ package com.dawood.enchry.service.device;
 
 import com.dawood.enchry.dto.device.DeviceRequestDTO;
 import com.dawood.enchry.dto.device.DeviceResponseDTO;
-import com.dawood.enchry.dto.device.DeviceResponseDTO;
 import com.dawood.enchry.exception.NoDeviceFoundException;
 import com.dawood.enchry.mapper.DeviceMapper;
 import com.dawood.enchry.model.Device;

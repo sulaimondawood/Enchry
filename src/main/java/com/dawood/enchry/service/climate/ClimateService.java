@@ -53,4 +53,9 @@ public class ClimateService {
 
         return ClimateMapper.toDTO(savedClimate);
     }
+
+    public ClimateResponseDTO latestClimateReading(){
+
+        return null;
+    }
 }
