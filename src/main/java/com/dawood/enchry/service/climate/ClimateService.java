@@ -55,7 +55,13 @@ public class ClimateService {
     }
 
     public ClimateResponseDTO latestClimateReading(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
 
-        return null;
+        Climate climate = climateRepository.findTopByDeviceUserUsernameOrderByTimeDesc(username)
+                .orElseThrow(()->new NoDeviceFoundException("Device not found or unauthorized"));
+
+        return ClimateMapper.toDTO(climate);
+
     }
 }

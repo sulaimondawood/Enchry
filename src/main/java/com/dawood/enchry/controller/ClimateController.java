@@ -22,7 +22,7 @@ public class ClimateController {
     }
 
     @GetMapping("/latest")
-    public ResponseEntity<ClimateResponseDTO> latest(){
-
+    public ResponseEntity<ClimateResponseDTO> latestCLimateReading(){
+        return ResponseEntity.ok(climateService.latestClimateReading());
     }
 }
