@@ -1,5 +1,11 @@
 package com.dawood.enchry.dto.climate;
 
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ClimateResponseDTO {
 
     private String sensoredData;

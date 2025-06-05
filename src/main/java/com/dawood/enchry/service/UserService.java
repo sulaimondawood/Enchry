@@ -29,8 +29,6 @@ public class UserService {
         final String token = jwt.substring(7);
 
         String userEmail = jwtUtils.extractEmail(token);
-        log.info(userEmail);
-        System.out.println(userEmail);
         return findUserByEmail(userEmail);
     }
 }
