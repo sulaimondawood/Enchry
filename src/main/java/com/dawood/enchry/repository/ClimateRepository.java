@@ -7,5 +7,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ClimateRepository extends JpaRepository<Climate, UUID> {
-    Optional<Climate> findTopByDeviceUserUsernameOrderByTimeDesc(String username);
+    Optional<Climate> findTopByDeviceUserEmailOrderByTimeDesc(String username);
 }

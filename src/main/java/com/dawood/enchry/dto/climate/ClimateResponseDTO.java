@@ -22,4 +22,6 @@ public class ClimateResponseDTO {
 
     private Long latitude;
 
+    private String timestamp;
+
 }

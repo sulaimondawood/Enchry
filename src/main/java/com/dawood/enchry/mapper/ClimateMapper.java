@@ -15,6 +15,7 @@ public class ClimateMapper {
         responseDTO.setLongitude(climate.getLongitude());
         responseDTO.setTimezone(climate.getTimezone());
         responseDTO.setSensoredData(climate.getSensoredData());
+        responseDTO.setTimestamp(climate.getTimestamp().toString());
 
         return  responseDTO;
     }

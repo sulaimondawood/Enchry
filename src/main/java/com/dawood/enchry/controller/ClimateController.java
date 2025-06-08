@@ -25,4 +25,9 @@ public class ClimateController {
     public ResponseEntity<ClimateResponseDTO> latestCLimateReading(){
         return ResponseEntity.ok(climateService.latestClimateReading());
     }
+
+    @PostMapping("/decrypt")
+    public ResponseEntity<?> decryptData(@RequestBody ClimateRequestDTO req){
+        return  null;
+    }
 }

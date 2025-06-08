@@ -66,4 +66,9 @@ public class DeviceController {
         DeviceResponseDTO response = deviceService.changeDeviceStatus(deviceId,activate,jwt);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/key")
+    public ResponseEntity<String> getPublicKey(){
+        return ResponseEntity.ok().body(deviceService.getPublicKey());
+    }
 }

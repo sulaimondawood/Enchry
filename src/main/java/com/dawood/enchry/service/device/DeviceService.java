@@ -11,6 +11,7 @@ import com.dawood.enchry.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class DeviceService {
     private static final Logger log = LoggerFactory.getLogger(DeviceService.class);
     private final DeviceRepository deviceRepository;
     private final UserService userService;
+    private final Environment environment;
 
     public DeviceResponseDTO addDevice(DeviceRequestDTO req, String jwt){
         Device device = new Device();
@@ -87,5 +89,9 @@ public class DeviceService {
         deviceRepository.save(device);
 
         return DeviceMapper.toDTO(device);
+    }
+
+    public String getPublicKey(){
+        return environment.getProperty("ecdh.public-key");
     }
 }
