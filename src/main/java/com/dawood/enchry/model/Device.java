@@ -30,6 +30,9 @@ public class Device {
 
     private String devicePublicId;
 
+    @OneToOne(mappedBy = "lastReading")
+    private Climate deviceLastReading;
+
     @Column(nullable = false)
     private boolean isActive = false;
 

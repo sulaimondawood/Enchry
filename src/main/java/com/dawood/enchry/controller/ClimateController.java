@@ -28,6 +28,8 @@ public class ClimateController {
 
     @PostMapping("/decrypt")
     public ResponseEntity<?> decryptData(@RequestBody ClimateRequestDTO req){
-        return  null;
+        climateService.decryptDataAndSave(req);
+        return ResponseEntity.ok("Successfully decrypted");
     }
+
 }

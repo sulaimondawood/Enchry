@@ -44,11 +44,15 @@ public class Climate {
     @NotNull(message = "Latitude is required")
     private Long latitude;
 
-    @CreatedDate
-    private LocalDateTime timestamp;
+    @OneToOne
+    @JoinColumn(name = "device_id_last_reading")
+    private Device lastReading;
 
     @ManyToOne
     @JoinColumn(name = "device_id")
     private Device device;
+
+    @CreatedDate
+    private LocalDateTime timestamp;
 
 }
